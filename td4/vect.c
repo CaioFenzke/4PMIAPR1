@@ -36,7 +36,9 @@ vect_t vect_append(void* e, vect_t table) {
 
 vect_t vect_delete(vect_t table){
     if (table==NULL) return NULL;
-    table->delete_data(table->data);
+    for (int i = 0; i < table->actual_size; i++) {
+        table->delete_data(table->data[i]);
+    }
     free(table);
     return NULL;
 }

@@ -52,11 +52,6 @@ link_t link_add_first(void* e, link_t l) {
 
     if ((new_link=malloc(sizeof(*new_link))) == NULL)
         return NULL;
-    
-    if ((new_link->data=calloc(1,sizeof(*(new_link->data)))) == NULL) {
-        free(new_link);
-        return NULL;
-    }
 
     new_link->next = l;
     new_link->data = e; 
@@ -113,14 +108,13 @@ list_t list_delete(list_t l) {
         free(link);
         link = next_link;
     }
-    
     l->size=0;
     return l;
 }
 
 list_t list_add_last(void* e, list_t l) {
     if(list_is_empty(l)) {
-        l->data = link_add_last(e, NULL);
+        l->data->data = e;
         l->size++;
         return l;
     }
@@ -128,7 +122,7 @@ list_t list_add_last(void* e, list_t l) {
     for (int i=0; i<l->size-1; i++) {
         current_link = current_link->next;
     }
-    current_link->next = link_add_last(e, current_link);
+    link_add_last(e, current_link);
     l->size++;
     return l;
 }
@@ -139,11 +133,7 @@ link_t link_add_last(void* e, link_t l) {
     if ((new_link=malloc(sizeof(*new_link))) == NULL)
         return NULL;
     
-    if ((new_link->data=calloc(1,sizeof(*e))) == NULL) {
-        free(new_link);
-        return NULL;
-    }
-    
+    l->next = new_link;
     new_link->data = e;
     return new_link;
 }
@@ -170,7 +160,6 @@ link_t link_del_last(link_t l, void* (*delete)(void*)) {
 link_t list_lookup(void* elem, list_t l, int(*compare)(void* e1, void* e2)) {
     link_t current_link;
     current_link = l->data;
-
     for (int i=0; i<l->size; i++) {
         if(compare(current_link->data, elem)) {
             return current_link;

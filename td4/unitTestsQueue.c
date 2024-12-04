@@ -14,6 +14,8 @@ int main() {
   l1=queue_enqueue(double_new(50),l1);
   l1=queue_enqueue(double_new(60),l1);
   l1=queue_enqueue(double_new(70),l1);
+  if (queue_lookup(pv,l1)) printf("%lf est dans la liste\n",*pv);
+  else printf("%lf n'est pas dans la liste\n",*pv);
   printf("Affichage par queue_type_printf :\n");
   queue_printf(l1);
 
@@ -31,6 +33,7 @@ int main() {
 
   printf("Liberation de la queuee\n");
   l1=queue_delete(l1);
+  free(l1);
 
   return EXIT_SUCCESS;
 }

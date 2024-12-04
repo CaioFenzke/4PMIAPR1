@@ -2,7 +2,7 @@
 #define _QUEUE_H
 
 /// Il faut utiliser les listes génériques
-#include <list.h>
+#include "../td4/list.h"
 
 /// Une queue est une liste générique circulaire
 /// Attention, la liste est circulaire, le champ data
@@ -42,5 +42,7 @@ void queue_printf(queue_t l);
 // Libère toute la queue et retourne une file vide
 // Libère aussi les éléments
 queue_t queue_delete(queue_t l);
+
+int queue_lookup(void* elem, queue_t l);
 
 #endif
